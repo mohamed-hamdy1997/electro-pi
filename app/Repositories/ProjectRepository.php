@@ -16,6 +16,7 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
     public function paginateForUser(int $userId, int $perPage = 10): LengthAwarePaginator
     {
         return $this->model
+            ->withCount('tasks')
             ->where('user_id', $userId)
             ->latest()
             ->paginate($perPage);

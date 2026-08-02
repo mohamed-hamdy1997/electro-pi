@@ -35,7 +35,7 @@ class ProjectController extends Controller
     {
         $this->authorize('view', $project);
 
-        return response()->json(new ProjectResource($project));
+        return response()->json(new ProjectResource($project->loadCount('tasks')));
     }
 
     public function update(ProjectRequest $request, Project $project): JsonResponse

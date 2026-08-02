@@ -20,12 +20,14 @@ class ProjectService
 
     public function store(User $user, array $data): Project
     {
-        return $this->projectRepository->create(array_merge($data, ['user_id' => $user->id]));
+        $project = $this->projectRepository->create(array_merge($data, ['user_id' => $user->id]));
+
+        return $project->loadCount('tasks');
     }
 
     public function update(Project $project, array $data): Project
     {
-        return $this->projectRepository->update($project, $data);
+        return $this->projectRepository->update($project, $data)->loadCount('tasks');
     }
 
     public function destroy(Project $project): bool
