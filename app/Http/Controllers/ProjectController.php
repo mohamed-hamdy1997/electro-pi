@@ -31,16 +31,16 @@ class ProjectController extends Controller
         ], 201);
     }
 
-    public function show(Request $request, Project $project): JsonResponse
+    public function show(Project $project): JsonResponse
     {
-        abort_if($project->user_id !== $request->user()->id, 403, 'Unauthorized.');
+        $this->authorize('view', $project);
 
         return response()->json(new ProjectResource($project));
     }
 
     public function update(ProjectRequest $request, Project $project): JsonResponse
     {
-        abort_if($project->user_id !== $request->user()->id, 403, 'Unauthorized.');
+        $this->authorize('update', $project);
 
         $project = $this->projectService->update($project, $request->validated());
 
@@ -50,9 +50,9 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function destroy(Request $request, Project $project): JsonResponse
+    public function destroy(Project $project): JsonResponse
     {
-        abort_if($project->user_id !== $request->user()->id, 403, 'Unauthorized.');
+        $this->authorize('delete', $project);
 
         $this->projectService->destroy($project);
 
