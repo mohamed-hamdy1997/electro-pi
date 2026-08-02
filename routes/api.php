@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::get('dashboard', DashboardController::class);
         Route::apiResource('projects', ProjectController::class);
         Route::apiResource('projects.tasks', TaskController::class)->scoped();
     });
