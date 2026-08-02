@@ -10,6 +10,7 @@ A RESTful API for managing projects and tasks, built with Laravel 13.
 - **Laravel Sanctum** — API token authentication
 - **MySQL** — Database
 - **PHPUnit** — Feature testing
+- **l5-swagger / swagger-php** — OpenAPI 3.0 documentation
 
 ## Architecture
 
@@ -104,6 +105,24 @@ php artisan test
 ```
 
 **46 tests · 129 assertions — all passing.**
+
+---
+
+## Interactive API Documentation (Swagger UI)
+
+Start the server then open:
+
+```
+http://127.0.0.1:8000/api/documentation
+```
+
+The Swagger UI lists all endpoints, request schemas, and response examples. Use the **Authorize** button to enter your Sanctum token for protected routes.
+
+To regenerate the spec manually:
+
+```bash
+php artisan l5-swagger:generate
+```
 
 ---
 
