@@ -1,58 +1,340 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task Management System API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RESTful API for managing projects and tasks, built with Laravel 13.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Laravel 13** — PHP framework
+- **Laravel Sanctum** — API token authentication
+- **MySQL** — Database
+- **PHPUnit** — Feature testing
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Architecture
 
-## Learning Laravel
+- Repository Pattern — data access abstracted behind interfaces
+- Service Layer — business logic decoupled from controllers
+- API Resources — consistent response shaping
+- Policies — per-model authorization
+- Enums — type-safe status and priority values
+- Soft Deletes — on users, projects, and tasks
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Requirements
 
-## Agentic Development
+- PHP >= 8.3
+- Composer
+- MySQL
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Steps
 
 ```bash
-composer require laravel/boost --dev
+# 1. Clone the repository
+git clone https://github.com/mohamed-hamdy1997/electro-pi.git
+cd electro-pi-task
 
-php artisan boost:install
+# 2. Install dependencies
+composer install
+
+# 3. Copy environment file
+cp .env.example .env
+
+# 4. Generate application key
+php artisan key:generate
+
+# 5. Configure your database in .env (see Environment Setup below)
+
+# 6. Run migrations
+php artisan migrate
+
+# 7. Seed sample data
+php artisan db:seed
+
+# 8. Start the development server
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Environment Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Update the following values in your `.env` file:
 
-## Code of Conduct
+```env
+APP_NAME="Task Management API"
+APP_URL=http://127.0.0.1:8000
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=electro_pi
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Sample Credentials
 
-## License
+After seeding, you can log in with:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Field    | Value                  |
+|----------|------------------------|
+| Email    | mohamed@example.com    |
+| Password | password               |
+
+---
+
+## Running Tests
+
+Tests use a separate in-memory MySQL database (`electro_pi_test`). Create it once:
+
+```bash
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS electro_pi_test;"
+```
+
+Then run the suite:
+
+```bash
+php artisan test
+```
+
+**46 tests · 129 assertions — all passing.**
+
+---
+
+## API Documentation
+
+Base URL: `http://127.0.0.1:8000/api/v1`
+
+All protected endpoints require the header:
+```
+Authorization: Bearer <token>
+```
+
+---
+
+### Authentication
+
+| Method | Endpoint            | Description       | Auth |
+|--------|---------------------|-------------------|------|
+| POST   | `/auth/register`    | Register new user | No   |
+| POST   | `/auth/login`       | Login             | No   |
+| POST   | `/auth/logout`      | Logout            | Yes  |
+
+#### Register
+
+```
+POST /api/v1/auth/register
+```
+
+**Body:**
+```json
+{
+    "name": "Mohamed Hamdy",
+    "email": "mohamed@example.com",
+    "password": "password",
+    "password_confirmation": "password"
+}
+```
+
+**Response `201`:**
+```json
+{
+    "message": "Registration successful.",
+    "user": { "id": 1, "name": "Mohamed Hamdy", "email": "mohamed@example.com", "created_at": "..." },
+    "token": "<sanctum-token>"
+}
+```
+
+#### Login
+
+```
+POST /api/v1/auth/login
+```
+
+**Body:**
+```json
+{
+    "email": "mohamed@example.com",
+    "password": "password"
+}
+```
+
+**Response `200`:**
+```json
+{
+    "message": "Login successful.",
+    "user": { "id": 1, "name": "Mohamed Hamdy", "email": "...", "created_at": "..." },
+    "token": "<sanctum-token>"
+}
+```
+
+#### Logout
+
+```
+POST /api/v1/auth/logout
+```
+
+**Response `200`:**
+```json
+{ "message": "Logged out successfully." }
+```
+
+---
+
+### Dashboard
+
+| Method | Endpoint      | Description    | Auth |
+|--------|---------------|----------------|------|
+| GET    | `/dashboard`  | Get statistics | Yes  |
+
+**Response `200`:**
+```json
+{
+    "total_projects":  5,
+    "active_projects": 3,
+    "total_tasks":     24,
+    "completed_tasks": 8,
+    "pending_tasks":   12,
+    "overdue_tasks":   4
+}
+```
+
+---
+
+### Projects
+
+| Method | Endpoint           | Description     | Auth |
+|--------|--------------------|-----------------|------|
+| GET    | `/projects`        | List projects   | Yes  |
+| POST   | `/projects`        | Create project  | Yes  |
+| GET    | `/projects/{id}`   | View project    | Yes  |
+| PUT    | `/projects/{id}`   | Update project  | Yes  |
+| DELETE | `/projects/{id}`   | Delete project  | Yes  |
+
+**Project object:**
+```json
+{
+    "id": 1,
+    "name": "My Project",
+    "description": "Project description",
+    "status": "active",
+    "tasks_count": 5,
+    "created_at": "2026-08-02 10:00:00",
+    "updated_at": "2026-08-02 10:00:00"
+}
+```
+
+**Status values:** `active` · `completed` · `archived`
+
+#### Create / Update Body
+
+```json
+{
+    "name": "My Project",
+    "description": "Optional description",
+    "status": "active"
+}
+```
+
+> All fields are optional on update (`PUT`). `name` is required on create (`POST`).
+
+---
+
+### Tasks
+
+Tasks are nested under projects.
+
+| Method | Endpoint                              | Description   | Auth |
+|--------|---------------------------------------|---------------|------|
+| GET    | `/projects/{project}/tasks`           | List tasks    | Yes  |
+| POST   | `/projects/{project}/tasks`           | Create task   | Yes  |
+| GET    | `/projects/{project}/tasks/{task}`    | View task     | Yes  |
+| PUT    | `/projects/{project}/tasks/{task}`    | Update task   | Yes  |
+| DELETE | `/projects/{project}/tasks/{task}`    | Delete task   | Yes  |
+
+**Task object:**
+```json
+{
+    "id": 1,
+    "project_id": 1,
+    "title": "Fix login bug",
+    "description": "Description here",
+    "priority": "high",
+    "status": "todo",
+    "due_date": "2026-08-10",
+    "created_at": "2026-08-02 10:00:00",
+    "updated_at": "2026-08-02 10:00:00"
+}
+```
+
+**Priority values:** `low` · `medium` · `high`
+
+**Status values:** `todo` · `in_progress` · `done`
+
+#### Create / Update Body
+
+```json
+{
+    "title": "Fix login bug",
+    "description": "Optional description",
+    "priority": "high",
+    "status": "todo",
+    "due_date": "2026-08-10"
+}
+```
+
+#### Filters & Search (query parameters)
+
+```
+GET /api/v1/projects/{project}/tasks?status=todo
+GET /api/v1/projects/{project}/tasks?priority=high
+GET /api/v1/projects/{project}/tasks?search=login
+```
+
+Parameters can be combined:
+```
+GET /api/v1/projects/{project}/tasks?status=todo&priority=high&search=bug
+```
+
+---
+
+## HTTP Status Codes
+
+| Code | Meaning                        |
+|------|--------------------------------|
+| 200  | Success                        |
+| 201  | Created                        |
+| 401  | Unauthenticated                |
+| 403  | Forbidden (not your resource)  |
+| 404  | Not found                      |
+| 422  | Validation error               |
+
+---
+
+## Database
+
+```
+users
+ └── id, name, email, password, timestamps, deleted_at
+
+projects
+ └── id, user_id (FK), name, description, status, timestamps, deleted_at
+
+tasks
+ └── id, project_id (FK), title, description, priority, status, due_date, timestamps, deleted_at
+
+personal_access_tokens
+ └── Sanctum token storage
+```
+
+Regenerate and reseed at any time:
+
+```bash
+php artisan migrate:fresh --seed
+```
