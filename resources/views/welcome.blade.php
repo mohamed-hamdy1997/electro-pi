@@ -17,45 +17,47 @@
         }
 
         header {
-            padding: 2rem;
+            padding: 1rem 1.25rem;
             border-bottom: 1px solid #1e293b;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .logo {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
 
-        header h1 { font-size: 1.25rem; font-weight: 600; color: #f1f5f9; }
-        header span { font-size: 0.75rem; color: #64748b; margin-left: 0.5rem; }
+        header h1 { font-size: 1rem; font-weight: 600; color: #f1f5f9; }
+        header span { font-size: 0.7rem; color: #64748b; margin-left: 0.4rem; }
 
         .badge {
             margin-left: auto;
             background: #16a34a22;
             color: #4ade80;
             border: 1px solid #16a34a44;
-            padding: 0.25rem 0.75rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 999px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.35rem;
+            flex-shrink: 0;
         }
 
         .badge::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background: #4ade80;
             animation: pulse 2s infinite;
@@ -66,40 +68,55 @@
             50% { opacity: 0.4; }
         }
 
-        main { flex: 1; max-width: 900px; margin: 0 auto; padding: 4rem 2rem; width: 100%; }
+        main {
+            flex: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 2.5rem 1rem;
+            width: 100%;
+        }
 
-        .hero { text-align: center; margin-bottom: 4rem; }
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
+        }
 
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
             font-weight: 700;
             background: linear-gradient(135deg, #f1f5f9, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             line-height: 1.2;
         }
 
         .hero p {
             color: #64748b;
-            font-size: 1.1rem;
-            max-width: 500px;
-            margin: 0 auto 2rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
             line-height: 1.6;
         }
 
-        .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .cta-group {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.65rem 1.25rem;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             font-weight: 500;
             text-decoration: none;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .btn-primary {
@@ -121,72 +138,88 @@
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 10px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 3rem;
+            padding: 0.85rem 1rem;
+            margin-bottom: 2.5rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             font-family: 'Courier New', monospace;
+            overflow: hidden;
         }
 
-        .base-url label { color: #64748b; font-size: 0.75rem; font-family: inherit; white-space: nowrap; }
-        .base-url span { color: #a5f3fc; font-size: 0.9rem; flex: 1; }
+        .base-url label {
+            color: #64748b;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .base-url span {
+            color: #a5f3fc;
+            font-size: clamp(0.65rem, 2vw, 0.85rem);
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         .copy-btn {
             background: #334155;
             border: none;
             color: #94a3b8;
-            padding: 0.35rem 0.75rem;
+            padding: 0.3rem 0.65rem;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .copy-btn:hover { background: #475569; color: #f1f5f9; }
 
         .section-title {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: #64748b;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
-        .endpoints { margin-bottom: 3rem; }
+        .endpoints { margin-bottom: 2.5rem; }
 
-        .endpoint-group { margin-bottom: 1.5rem; }
+        .endpoint-group { margin-bottom: 1.25rem; }
 
         .group-label {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: #94a3b8;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             padding-left: 0.5rem;
         }
 
         .endpoint {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.65rem 1rem;
+            gap: 0.6rem;
+            padding: 0.55rem 0.75rem;
             border-radius: 8px;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.3rem;
             background: #1e293b;
             border: 1px solid #1e293b;
             transition: border-color 0.2s;
+            overflow: hidden;
         }
 
         .endpoint:hover { border-color: #334155; }
 
         .method {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            padding: 0.2rem 0.5rem;
+            padding: 0.18rem 0.4rem;
             border-radius: 4px;
-            width: 52px;
+            width: 46px;
             text-align: center;
             flex-shrink: 0;
             font-family: monospace;
@@ -199,48 +232,77 @@
 
         .path {
             font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
+            font-size: clamp(0.65rem, 2vw, 0.82rem);
             color: #cbd5e1;
             flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .path .param { color: #f59e0b; }
 
-        .desc { font-size: 0.78rem; color: #64748b; text-align: right; }
+        .desc {
+            font-size: 0.72rem;
+            color: #64748b;
+            white-space: nowrap;
+            flex-shrink: 0;
+            display: none;
+        }
 
         .auth-badge {
-            font-size: 0.65rem;
-            background: #1e293b;
+            font-size: 0.6rem;
+            background: #0f172a;
             border: 1px solid #334155;
             color: #64748b;
-            padding: 0.15rem 0.4rem;
+            padding: 0.12rem 0.35rem;
             border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 600px) {
+            .desc { display: block; }
+            header { padding: 1.25rem 2rem; }
+            header h1 { font-size: 1.15rem; }
+            main { padding: 3.5rem 2rem; }
+            .hero { margin-bottom: 3rem; }
+            .base-url { padding: 1rem 1.5rem; }
+            .endpoint { padding: 0.6rem 1rem; gap: 0.75rem; }
+            .method { width: 52px; font-size: 0.7rem; }
         }
 
         .stack-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 480px) {
+            .stack-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (min-width: 700px) {
+            .stack-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
         }
 
         .stack-card {
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 10px;
-            padding: 1rem;
+            padding: 0.85rem;
         }
 
-        .stack-card .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .stack-card h4 { font-size: 0.85rem; font-weight: 600; color: #f1f5f9; margin-bottom: 0.2rem; }
-        .stack-card p { font-size: 0.75rem; color: #64748b; }
+        .stack-card h4 { font-size: 0.82rem; font-weight: 600; color: #f1f5f9; margin-bottom: 0.2rem; }
+        .stack-card p  { font-size: 0.72rem; color: #64748b; }
 
         footer {
-            padding: 1.5rem 2rem;
+            padding: 1.25rem 1rem;
             border-top: 1px solid #1e293b;
             text-align: center;
             color: #475569;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
+            line-height: 1.8;
         }
 
         footer a { color: #6366f1; text-decoration: none; }
@@ -262,12 +324,8 @@
         <h2>Task Management<br>REST API</h2>
         <p>A clean, structured API for managing projects and tasks. Built with Laravel 13 and Sanctum authentication.</p>
         <div class="cta-group">
-            <a href="/api/documentation" class="btn btn-primary">
-                Swagger Docs
-            </a>
-            <a href="https://github.com/mohamed-hamdy1997/electro-pi" target="_blank" class="btn btn-outline">
-                GitHub
-            </a>
+            <a href="/api/documentation" class="btn btn-primary">Swagger Docs</a>
+            <a href="https://github.com/mohamed-hamdy1997/electro-pi" target="_blank" class="btn btn-outline">GitHub</a>
         </div>
     </div>
 
@@ -383,7 +441,7 @@
     <div class="stack-grid">
         <div class="stack-card">
             <h4>Laravel 13</h4>
-            <p>PHP 8.3 framework</p>
+            <p>PHP 8.4 framework</p>
         </div>
         <div class="stack-card">
             <h4>Sanctum</h4>
@@ -409,7 +467,7 @@
 </main>
 
 <footer>
-    Built with Laravel 13 By Mohamed Hamdy&nbsp;·&nbsp;
+    Built with Laravel 13 By Mohamed Hamdy &nbsp;·&nbsp;
     <a href="/api/documentation">API Docs</a> &nbsp;·&nbsp;
     <a href="https://github.com/mohamed-hamdy1997/electro-pi" target="_blank">GitHub</a>
 </footer>
