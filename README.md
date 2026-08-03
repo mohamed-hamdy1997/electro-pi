@@ -11,6 +11,7 @@ A RESTful API for managing projects and tasks, built with Laravel 13.
 - **MySQL** — Database
 - **PHPUnit** — Feature testing
 - **l5-swagger / swagger-php** — OpenAPI 3.0 documentation
+- **Docker** — containerised app, nginx, MySQL, queue worker, scheduler
 
 ## Architecture
 
@@ -25,13 +26,54 @@ A RESTful API for managing projects and tasks, built with Laravel 13.
 
 ## Installation
 
-### Requirements
+### Option A — Docker (recommended)
 
-- PHP >= 8.3
-- Composer
-- MySQL
+**Requirements:** Docker + Docker Compose
 
-### Steps
+```bash
+# 1. Clone the repository
+git clone https://github.com/mohamed-hamdy1997/electro-pi.git
+cd electro-pi-task
+
+# 2. Copy environment file
+cp .env.example .env
+
+# 3. Generate application key
+php artisan key:generate
+# or: echo "APP_KEY=$(openssl rand -base64 32)" >> .env
+
+# 4. Start all services (app, nginx, db, queue, scheduler)
+docker compose up -d --build
+
+# 5. Run migrations and seed
+docker compose exec app php artisan migrate --seed
+```
+
+The API will be available at `http://localhost:8000`.
+
+> The DB is exposed on port **3307** to avoid conflicts with a local MySQL on 3306.
+
+**Useful commands:**
+
+```bash
+# View logs
+docker compose logs -f
+
+# Run artisan commands
+docker compose exec app php artisan <command>
+
+# Stop all services
+docker compose down
+
+# Stop and remove volumes (wipes DB)
+docker compose down -v
+```
+
+---
+
+### Option B — Local (without Docker)
+
+**Requirements:** PHP >= 8.3, Composer, MySQL
 
 ```bash
 # 1. Clone the repository
