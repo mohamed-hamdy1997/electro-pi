@@ -11,7 +11,11 @@ use OpenApi\Attributes as OA;
     contact: new OA\Contact(email: 'support@example.com'),
 )]
 #[OA\Server(
-    url: L5_SWAGGER_CONST_HOST,
+    url: 'https://electro-pi-management.up.railway.app',
+    description: 'Production server',
+)]
+#[OA\Server(
+    url: 'http://127.0.0.1:8000',
     description: 'Local development server',
 )]
 #[OA\SecurityScheme(

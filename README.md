@@ -2,6 +2,8 @@
 
 A RESTful API for managing projects and tasks, built with Laravel 13.
 
+**Live URL:** https://electro-pi-management.up.railway.app
+
 ---
 
 ## Tech Stack
@@ -152,7 +154,13 @@ php artisan test
 
 ## Interactive API Documentation (Swagger UI)
 
-Start the server then open:
+Live:
+
+```
+https://electro-pi-management.up.railway.app/api/documentation
+```
+
+Or locally after `php artisan serve`:
 
 ```
 http://127.0.0.1:8000/api/documentation
@@ -170,7 +178,9 @@ php artisan l5-swagger:generate
 
 ## API Documentation
 
-Base URL: `http://127.0.0.1:8000/api/v1`
+Base URL (live): `https://electro-pi-management.up.railway.app/api/v1`
+
+Base URL (local): `http://127.0.0.1:8000/api/v1`
 
 All protected endpoints require the header:
 ```
