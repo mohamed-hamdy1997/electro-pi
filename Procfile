@@ -1,0 +1,1 @@
+web: mkdir -p public/vendor/swagger-api/swagger-ui && cp -r vendor/swagger-api/swagger-ui/dist public/vendor/swagger-api/swagger-ui/ && php artisan config:cache && php artisan view:cache && php artisan route:cache && php artisan serve --host=0.0.0.0 --port=$PORT
